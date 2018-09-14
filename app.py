@@ -12,6 +12,14 @@ app = flask.Flask(__name__)
 #Starts the debugger. With this line, if your code is malformed, you’ll see an error when you visit your app
 app.config["DEBUG"] = True
 
+def app(environ, start_response):
+    data = b"Hello, World!\n"
+    start_response("200 OK", [
+        ("Content-Type", "text/plain"),
+        ("Content-Length", str(len(data)))
+    ])
+    return iter([data])
+
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
