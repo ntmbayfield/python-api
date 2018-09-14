@@ -1,0 +1,7 @@
+README.md
+setup.py
+k911pythonalertsserver/__init__.py
+k911pythonalertsserver_pkg.egg-info/PKG-INFO
+k911pythonalertsserver_pkg.egg-info/SOURCES.txt
+k911pythonalertsserver_pkg.egg-info/dependency_links.txt
+k911pythonalertsserver_pkg.egg-info/top_level.txt
