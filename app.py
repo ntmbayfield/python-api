@@ -2,6 +2,7 @@
 # -*- coding: iso-8859-15 -*-
 
 #Imports the Flask library, making the code available to the rest of the application.#
+import os
 import flask
 from flask import request, jsonify
 import sqlite3
@@ -27,10 +28,11 @@ def home():
 
 @app.route('/alerts', methods=['POST'])
 def alerts():
-    return '''<h1>hit /alerts POST route</h1>'''
+    return '''<h1>hit /alerts POST route</h1>
+<p>deviceId: G030MD0402648GB1</p>'''
 
 #Define Admin route to get all devices.
-@app.route('/api/v1/resources/devices/all', methods=['GET'])
+@app.route('/k911/v1/devices/all', methods=['GET'])
 def api_all():
     #connect to the database using our sqlite3 library and an object representing the connection to the database is bound to the conn variable
     conn = sqlite3.connect('devices.db')
@@ -52,7 +54,7 @@ def api_all():
 def page_not_found(e):
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
 
-@app.route('/api/v1/resources/devices', methods=['GET'])
+@app.route('/k911/v1/devices', methods=['GET'])
 def api_filter():
     #The function first grabs all the query parameters provided in the URL (remember, query parameters are the part of the URL that follows the ?, like ?id=10)
     query_parameters = request.args
