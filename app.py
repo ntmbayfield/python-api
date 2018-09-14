@@ -85,4 +85,4 @@ def api_filter():
     # Use the jsonify function from Flask to return the results of our executed SQL query as JSON to the user
     return jsonify(results)
 
-app.run()
+app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
