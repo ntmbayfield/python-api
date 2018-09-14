@@ -1,1 +1,1 @@
-name= "k911-python-alerts-server"
+name= "k911pythonalertsserver_pkg"

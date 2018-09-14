@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="k911-python-alerts-server_pkg",
+    name="k911pythonalertsserver_pkg",
     version="0.0.1",
     author="Nyiema Bayfield",
     author_email="ntmbayfield@gmail.com",
