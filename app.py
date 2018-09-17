@@ -5,10 +5,14 @@
 import os
 import flask
 from flask import request, jsonify
+from flask import Flask
+from flask_cors import CORS
+import requests
 import sqlite3
 
 #Creates the Flask application object, which contains data about the application and also methods (object functions) that tell the application to do certain actions
 app = flask.Flask(__name__)
+CORS(app)
 
 #Starts the debugger. With this line, if your code is malformed, you’ll see an error when you visit your app
 app.config["DEBUG"] = True
@@ -28,8 +32,13 @@ def home():
 
 @app.route('/alerts', methods=['POST'])
 def alerts():
-    return '''<h1>hit /alerts POST route</h1>
-<p>deviceId: G030MD0402648GB1</p>'''
+    # pull the serial number from request.data
+    num = request.data.serialNum
+    userIdResponse = requests.get('http://localhost:3911/devices_users?serialNum={num}')
+    jsonUserIdResponse = response.json()
+
+
+    return '''<h1>hit /alerts POST route</h1>'''
 
 #Define Admin route to get all devices.
 @app.route('/k911/v1/devices/all', methods=['GET'])
@@ -54,7 +63,7 @@ def api_all():
 def page_not_found(e):
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
 
-@app.route('/k911/v1/devices', methods=['GET'])
+@app.route('/k911/v1/devices/:device_id', methods=['GET'])
 def api_filter():
     #The function first grabs all the query parameters provided in the URL (remember, query parameters are the part of the URL that follows the ?, like ?id=10)
     query_parameters = request.args
