@@ -32,11 +32,20 @@ def home():
 
 @app.route('/alerts', methods=['POST'])
 def alerts():
-    # pull the serial number from request.data
-    num = request.data.serialNum
-    userIdResponse = requests.get('http://localhost:3911/devices_users?serialNum={num}')
-    jsonUserIdResponse = response.json()
+    requestJson = request.get_json()
+    print(requestJson)
+    serialNum = requestJson['serialNumber']
+    print(serialNum)
 
+    # This endpoint will handle making the emergency call
+    userIdResponse = requests.get('http://localhost:3911/getUserIdFromSerialNum/' + serialNum)
+    jsonUserIdResponse = userIdResponse.json()
+    #returns a json object containing the user_id
+    print(jsonUserIdResponse[0]['user_id'])
+    userId = jsonUserIdResponse[0]['user_id']
+    emergencyResponse = requests.get('http://localhost:3911/emergency/' + str(userId))
+    jsonEmergencyResponse = emergencyResponse.json()
+    print(jsonEmergencyResponse)
 
     return '''<h1>hit /alerts POST route</h1>'''
 
