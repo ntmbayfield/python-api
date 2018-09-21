@@ -37,12 +37,19 @@ def alerts():
     serialNum = requestJson['serialNumber']
     print(serialNum)
 
-    # This endpoint will handle making the emergency call
+    # This endpoint retrieves the userId based upon the device's serial number
     userIdResponse = requests.get('http://localhost:3911/getUserIdFromSerialNum/' + serialNum)
     jsonUserIdResponse = userIdResponse.json()
+    print(jsonUserIdResponse)
     #returns a json object containing the user_id
+    # print(jsonUserIdResponse[0]['user_id'])
+    # userId = jsonUserIdResponse[0]['user_id']
     print(jsonUserIdResponse[0]['user_id'])
     userId = jsonUserIdResponse[0]['user_id']
+    # print('''jsonUserIdResponse is ''', jsonUserIdResponse['user_id'])
+    # userId = jsonUserIdResponse['user_id']
+
+    #this endpoint
     emergencyResponse = requests.get('http://localhost:3911/emergency/' + str(userId))
     jsonEmergencyResponse = emergencyResponse.json()
     print(jsonEmergencyResponse)
